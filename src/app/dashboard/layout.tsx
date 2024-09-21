@@ -15,7 +15,6 @@ export default function DashboardLayout({ children }: LayoutProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the current session
     const fetchSession = async () => {
       const { data, error } = await supabase.auth.getSession();
 
@@ -36,7 +35,6 @@ export default function DashboardLayout({ children }: LayoutProps) {
 
     fetchSession();
 
-    // Listen for auth state changes
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         if (!session) {
@@ -62,15 +60,9 @@ export default function DashboardLayout({ children }: LayoutProps) {
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar */}
       <Sidebar />
-
-      {/* Main Content */}
       <div className="flex-1 ml-64">
-        {/* Navbar */}
         <Navbar />
-
-        {/* Page Content */}
         <main className="mt-16 p-8 h-full overflow-y-auto">{children}</main>
       </div>
     </div>
